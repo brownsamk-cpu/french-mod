@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:iron_ingot",
+    "#minecraft:coals"
+  ],
+  "result": {
+    "id": "frenchmod:steel_blend",
+    "count": 1
+  }
+}

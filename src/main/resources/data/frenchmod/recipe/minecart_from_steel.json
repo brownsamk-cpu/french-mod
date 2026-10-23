@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "frenchmod:steel_ingot"
+  },
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "result": {
+    "id": "minecraft:minecart"
+  }
+}

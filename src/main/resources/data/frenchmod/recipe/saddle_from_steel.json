@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "frenchmod:steel_ingot",
+    "X": "minecraft:leather"
+  },
+  "pattern": [
+    " X ",
+    "X#X"
+  ],
+  "result": {
+    "id": "minecraft:saddle"
+  }
+}

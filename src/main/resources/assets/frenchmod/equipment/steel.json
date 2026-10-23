@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "frenchmod:steel"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "frenchmod:steel"
+      }
+    ]
+  }
+}

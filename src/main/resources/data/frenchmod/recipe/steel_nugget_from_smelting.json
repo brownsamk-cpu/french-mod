@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    "frenchmod:steel_sword",
+    "frenchmod:steel_shovel",
+    "frenchmod:steel_pickaxe",
+    "frenchmod:steel_axe",
+    "frenchmod:steel_hoe",
+    "frenchmod:steel_helmet",
+    "frenchmod:steel_chestplate",
+    "frenchmod:steel_leggings",
+    "frenchmod:steel_boots"
+  ],
+  "result": {
+    "id": "frenchmod:steel_nugget"
+  }
+}

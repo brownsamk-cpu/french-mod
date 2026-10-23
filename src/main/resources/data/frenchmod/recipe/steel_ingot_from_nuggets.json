@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "steel_ingot",
+  "key": {
+    "#": "frenchmod:steel_nugget"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "id": "frenchmod:steel_ingot"
+  }
+}

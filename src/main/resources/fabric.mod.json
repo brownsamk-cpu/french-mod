@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "frenchmod",
+	"version": "${version}",
+	"name": "French Mod",
+	"description": "Step 1 of a cubey French city: Steel! A darker, cooler silver than iron, with a full steel tool and armor set. Steel also works like iron in lots of recipes.",
+	"authors": [
+		"Sam Brown",
+		"Sam's daughter"
+	],
+	"contact": {
+		"sources": "https://github.com/brownsamk-cpu/french-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/frenchmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.frenchmod.FrenchMod"
+		],
+		"client": [
+			"com.frenchmod.client.FrenchModClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

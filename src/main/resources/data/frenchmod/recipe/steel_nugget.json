@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "frenchmod:steel_ingot"
+  ],
+  "result": {
+    "id": "frenchmod:steel_nugget",
+    "count": 9
+  }
+}

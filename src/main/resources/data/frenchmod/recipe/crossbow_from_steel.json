@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "$": "minecraft:tripwire_hook",
+    "&": "frenchmod:steel_ingot",
+    "~": "minecraft:string"
+  },
+  "pattern": [
+    "#&#",
+    "~$~",
+    " # "
+  ],
+  "result": {
+    "id": "minecraft:crossbow"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "item.frenchmod.steel_blend": "Mélange d'acier",
+  "item.frenchmod.steel_ingot": "Lingot d'acier",
+  "item.frenchmod.steel_nugget": "Pépite d'acier",
+  "item.frenchmod.steel_sword": "Épée en acier",
+  "item.frenchmod.steel_shovel": "Pelle en acier",
+  "item.frenchmod.steel_pickaxe": "Pioche en acier",
+  "item.frenchmod.steel_axe": "Hache en acier",
+  "item.frenchmod.steel_hoe": "Houe en acier",
+  "item.frenchmod.steel_helmet": "Casque en acier",
+  "item.frenchmod.steel_chestplate": "Plastron en acier",
+  "item.frenchmod.steel_leggings": "Jambières en acier",
+  "item.frenchmod.steel_boots": "Bottes en acier",
+  "block.frenchmod.steel_block": "Bloc d'acier",
+  "itemGroup.frenchmod.french_mod": "French Mod"
+}
