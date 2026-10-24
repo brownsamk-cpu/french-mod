@@ -3,7 +3,7 @@
 	"id": "frenchmod",
 	"version": "${version}",
 	"name": "French Mod",
-	"description": "Step 1 of a cubey French city: Steel! A darker, cooler silver than iron, with a full steel tool and armor set. Steel also works like iron in lots of recipes.",
+	"description": "Step 1 of a cubey French city: Steel! A darker, cooler silver than iron, with a full steel tool and armor set. Steel also works like iron in lots of recipes. Step 2: hide-and-seek! /hideseek start <seeker> gives everyone 1 minute to hide, with timers in the top-left corner.",
 	"authors": [
 		"Sam Brown",
 		"Sam's daughter"

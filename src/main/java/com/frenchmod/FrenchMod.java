@@ -3,7 +3,7 @@ package com.frenchmod;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 
-/** French Mod: a cubey French city, one step at a time. Step 1 is steel. */
+/** French Mod: a cubey French city, one step at a time. Step 1 is steel, step 2 is hide-and-seek. */
 public class FrenchMod implements ModInitializer {
 	public static final String MOD_ID = "frenchmod";
 
@@ -14,5 +14,6 @@ public class FrenchMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModSteel.init();
+		com.frenchmod.hideseek.ModHideSeek.init();
 	}
 }

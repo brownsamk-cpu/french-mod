@@ -6,10 +6,12 @@
   "environment": "*",
   "entrypoints": {
     "fabric-gametest": [
-      "com.frenchmod.test.SteelGameTest"
+      "com.frenchmod.test.SteelGameTest",
+      "com.frenchmod.test.HideSeekGameTest"
     ],
     "fabric-client-gametest": [
-      "com.frenchmod.test.SteelScreenshots"
+      "com.frenchmod.test.SteelScreenshots",
+      "com.frenchmod.test.HideSeekScreenshots"
     ]
   },
   "depends": {
