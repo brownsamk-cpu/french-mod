@@ -12,5 +12,11 @@
   "item.frenchmod.steel_leggings": "Steel Leggings",
   "item.frenchmod.steel_boots": "Steel Boots",
   "block.frenchmod.steel_block": "Block of Steel",
-  "itemGroup.frenchmod.french_mod": "French Mod"
+  "itemGroup.frenchmod.french_mod": "French Mod",
+  "block.frenchmod.chair": "Chair",
+  "block.frenchmod.table": "Table",
+  "block.frenchmod.fancy_bed": "Fancy Bed",
+  "block.frenchmod.couch": "Couch",
+  "block.frenchmod.lamp": "Lamp",
+  "entity.frenchmod.seat": "Seat"
 }

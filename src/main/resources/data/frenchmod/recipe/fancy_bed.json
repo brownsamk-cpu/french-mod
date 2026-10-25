@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "P": "#minecraft:planks",
+    "W": "minecraft:light_blue_wool",
+    "L": "minecraft:white_wool",
+    "G": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "GLG",
+    "WWW",
+    "PPP"
+  ],
+  "result": {
+    "id": "frenchmod:fancy_bed"
+  }
+}

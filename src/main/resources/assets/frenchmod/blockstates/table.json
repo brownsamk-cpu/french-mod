@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "frenchmod:block/table"
+    },
+    "facing=east": {
+      "model": "frenchmod:block/table",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "frenchmod:block/table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "frenchmod:block/table",
+      "y": 270
+    }
+  }
+}

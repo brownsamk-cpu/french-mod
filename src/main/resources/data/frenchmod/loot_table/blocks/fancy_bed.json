@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "frenchmod:fancy_bed",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "frenchmod:fancy_bed",
+            "state": {
+              "part": "head"
+            }
+          }
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "frenchmod:blocks/fancy_bed"
+}

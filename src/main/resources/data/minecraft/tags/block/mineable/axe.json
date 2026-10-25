@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "frenchmod:chair",
+    "frenchmod:table",
+    "frenchmod:fancy_bed",
+    "frenchmod:couch",
+    "frenchmod:lamp"
+  ]
+}

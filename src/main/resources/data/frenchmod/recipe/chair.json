@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "P": "#minecraft:planks",
+    "W": "minecraft:light_blue_wool",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "P  ",
+    "PWP",
+    "S S"
+  ],
+  "result": {
+    "id": "frenchmod:chair"
+  }
+}

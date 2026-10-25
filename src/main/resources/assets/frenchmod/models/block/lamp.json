@@ -1,0 +1,351 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "frenchmod:block/cream_wood",
+    "gold_trim": "frenchmod:block/gold_trim",
+    "lamp_shade_off": "frenchmod:block/lamp_shade_off"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        1,
+        11
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#gold_trim"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#gold_trim"
+        },
+        "north": {
+          "uv": [
+            5,
+            15,
+            11,
+            16
+          ],
+          "texture": "#gold_trim"
+        },
+        "south": {
+          "uv": [
+            5,
+            15,
+            11,
+            16
+          ],
+          "texture": "#gold_trim"
+        },
+        "west": {
+          "uv": [
+            5,
+            15,
+            11,
+            16
+          ],
+          "texture": "#gold_trim"
+        },
+        "east": {
+          "uv": [
+            5,
+            15,
+            11,
+            16
+          ],
+          "texture": "#gold_trim"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        1,
+        6.5
+      ],
+      "to": [
+        9.5,
+        2,
+        9.5
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            6.5,
+            6.5,
+            9.5,
+            9.5
+          ],
+          "texture": "#gold_trim"
+        },
+        "up": {
+          "uv": [
+            6.5,
+            6.5,
+            9.5,
+            9.5
+          ],
+          "texture": "#gold_trim"
+        },
+        "north": {
+          "uv": [
+            6.5,
+            14,
+            9.5,
+            15
+          ],
+          "texture": "#gold_trim"
+        },
+        "south": {
+          "uv": [
+            6.5,
+            14,
+            9.5,
+            15
+          ],
+          "texture": "#gold_trim"
+        },
+        "west": {
+          "uv": [
+            6.5,
+            14,
+            9.5,
+            15
+          ],
+          "texture": "#gold_trim"
+        },
+        "east": {
+          "uv": [
+            6.5,
+            14,
+            9.5,
+            15
+          ],
+          "texture": "#gold_trim"
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        2,
+        7.5
+      ],
+      "to": [
+        8.5,
+        9,
+        8.5
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ],
+          "texture": "#gold_trim"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ],
+          "texture": "#gold_trim"
+        },
+        "north": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            14
+          ],
+          "texture": "#gold_trim"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            14
+          ],
+          "texture": "#gold_trim"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            14
+          ],
+          "texture": "#gold_trim"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            14
+          ],
+          "texture": "#gold_trim"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        9,
+        4
+      ],
+      "to": [
+        12,
+        15,
+        12
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#lamp_shade_off"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#lamp_shade_off"
+        },
+        "north": {
+          "uv": [
+            4,
+            1,
+            12,
+            7
+          ],
+          "texture": "#lamp_shade_off"
+        },
+        "south": {
+          "uv": [
+            4,
+            1,
+            12,
+            7
+          ],
+          "texture": "#lamp_shade_off"
+        },
+        "west": {
+          "uv": [
+            4,
+            1,
+            12,
+            7
+          ],
+          "texture": "#lamp_shade_off"
+        },
+        "east": {
+          "uv": [
+            4,
+            1,
+            12,
+            7
+          ],
+          "texture": "#lamp_shade_off"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        15,
+        7
+      ],
+      "to": [
+        9,
+        16,
+        9
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            7,
+            7,
+            9,
+            9
+          ],
+          "texture": "#gold_trim"
+        },
+        "up": {
+          "uv": [
+            7,
+            7,
+            9,
+            9
+          ],
+          "texture": "#gold_trim"
+        },
+        "north": {
+          "uv": [
+            7,
+            0,
+            9,
+            1
+          ],
+          "texture": "#gold_trim"
+        },
+        "south": {
+          "uv": [
+            7,
+            0,
+            9,
+            1
+          ],
+          "texture": "#gold_trim"
+        },
+        "west": {
+          "uv": [
+            7,
+            0,
+            9,
+            1
+          ],
+          "texture": "#gold_trim"
+        },
+        "east": {
+          "uv": [
+            7,
+            0,
+            9,
+            1
+          ],
+          "texture": "#gold_trim"
+        }
+      }
+    }
+  ]
+}

@@ -7,11 +7,13 @@
   "entrypoints": {
     "fabric-gametest": [
       "com.frenchmod.test.SteelGameTest",
-      "com.frenchmod.test.HideSeekGameTest"
+      "com.frenchmod.test.HideSeekGameTest",
+      "com.frenchmod.test.FurnitureGameTest"
     ],
     "fabric-client-gametest": [
       "com.frenchmod.test.SteelScreenshots",
-      "com.frenchmod.test.HideSeekScreenshots"
+      "com.frenchmod.test.HideSeekScreenshots",
+      "com.frenchmod.test.FurnitureScreenshots"
     ]
   },
   "depends": {

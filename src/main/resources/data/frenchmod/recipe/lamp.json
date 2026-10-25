@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "L": "minecraft:white_wool",
+    "T": "minecraft:torch",
+    "G": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    " L ",
+    " T ",
+    " G "
+  ],
+  "result": {
+    "id": "frenchmod:lamp"
+  }
+}

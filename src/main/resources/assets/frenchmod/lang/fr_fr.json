@@ -12,5 +12,11 @@
   "item.frenchmod.steel_leggings": "Jambières en acier",
   "item.frenchmod.steel_boots": "Bottes en acier",
   "block.frenchmod.steel_block": "Bloc d'acier",
-  "itemGroup.frenchmod.french_mod": "French Mod"
+  "itemGroup.frenchmod.french_mod": "French Mod",
+  "block.frenchmod.chair": "Chaise",
+  "block.frenchmod.table": "Table",
+  "block.frenchmod.fancy_bed": "Lit Chic",
+  "block.frenchmod.couch": "Canapé",
+  "block.frenchmod.lamp": "Lampe",
+  "entity.frenchmod.seat": "Siège"
 }

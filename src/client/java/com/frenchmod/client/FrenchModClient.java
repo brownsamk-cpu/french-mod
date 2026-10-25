@@ -15,6 +15,7 @@ public class FrenchModClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(com.frenchmod.furniture.ModFurniture.SEAT, net.minecraft.client.renderer.entity.NoopRenderer::new);
 		ClientPlayNetworking.registerGlobalReceiver(HideSeekHudPayload.TYPE, (payload, context) -> hud = payload);
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> hud = new HideSeekHudPayload(0, 0, 0, 0));
 

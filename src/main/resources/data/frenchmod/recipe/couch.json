@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "P": "#minecraft:planks",
+    "W": "minecraft:light_blue_wool",
+    "G": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "W  ",
+    "WWW",
+    "PGP"
+  ],
+  "result": {
+    "id": "frenchmod:couch"
+  }
+}
