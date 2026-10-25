@@ -8,12 +8,14 @@
     "fabric-gametest": [
       "com.frenchmod.test.SteelGameTest",
       "com.frenchmod.test.HideSeekGameTest",
-      "com.frenchmod.test.FurnitureGameTest"
+      "com.frenchmod.test.FurnitureGameTest",
+      "com.frenchmod.test.TuxGameTest"
     ],
     "fabric-client-gametest": [
       "com.frenchmod.test.SteelScreenshots",
       "com.frenchmod.test.HideSeekScreenshots",
-      "com.frenchmod.test.FurnitureScreenshots"
+      "com.frenchmod.test.FurnitureScreenshots",
+      "com.frenchmod.test.TuxScreenshots"
     ]
   },
   "depends": {

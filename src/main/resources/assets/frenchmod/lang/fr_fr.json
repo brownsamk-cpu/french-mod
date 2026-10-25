@@ -19,5 +19,7 @@
   "block.frenchmod.couch": "Canapé",
   "block.frenchmod.lamp": "Lampe",
   "entity.frenchmod.seat": "Siège",
-  "block.frenchmod.golden_trim_table": "La Table à Bordure Dorée"
+  "block.frenchmod.golden_trim_table": "La Table à Bordure Dorée",
+  "entity.frenchmod.tux": "Tux",
+  "item.frenchmod.tux_spawn_egg": "Œuf d'apparition de Tux"
 }

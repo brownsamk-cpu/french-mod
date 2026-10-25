@@ -19,5 +19,7 @@
   "block.frenchmod.couch": "Couch",
   "block.frenchmod.lamp": "Lamp",
   "entity.frenchmod.seat": "Seat",
-  "block.frenchmod.golden_trim_table": "The Golden Trim Table"
+  "block.frenchmod.golden_trim_table": "The Golden Trim Table",
+  "entity.frenchmod.tux": "Tux",
+  "item.frenchmod.tux_spawn_egg": "Tux Spawn Egg"
 }

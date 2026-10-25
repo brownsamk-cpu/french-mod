@@ -16,5 +16,6 @@ public class FrenchMod implements ModInitializer {
 		ModSteel.init();
 		com.frenchmod.hideseek.ModHideSeek.init();
 		com.frenchmod.furniture.ModFurniture.init();
+		com.frenchmod.tux.ModTux.init();
 	}
 }
