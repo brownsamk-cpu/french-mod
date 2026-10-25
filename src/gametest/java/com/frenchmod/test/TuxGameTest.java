@@ -5,6 +5,10 @@ import com.frenchmod.tux.ModTux;
 import com.frenchmod.tux.Tux;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
@@ -48,5 +52,35 @@ public class TuxGameTest {
 			h.assertTrue(tux.isAlive(), "Tux is fine");
 			h.succeed();
 		});
+	}
+
+	/** A chest with 2 bread and a stick: Tux takes ONE bread, the other bread and the stick stay. */
+	@GameTest(maxTicks = 300)
+	public void tuxStealsOneBreadFromAChest(GameTestHelper h) {
+		floor(h);
+		BlockPos chestPos = new BlockPos(4, 1, 0);
+		h.setBlock(chestPos, Blocks.CHEST.defaultBlockState());
+		ChestBlockEntity chest = (ChestBlockEntity) h.getBlockEntity(chestPos, ChestBlockEntity.class);
+		chest.setItem(0, new ItemStack(Items.BREAD, 2));
+		chest.setItem(1, new ItemStack(Items.STICK));
+		Tux tux = h.spawn(ModTux.TUX, new Vec3(0.5, 1.0, 0.5));
+		h.succeedWhen(() -> {
+			h.assertTrue(chest.getItem(0).is(Items.BREAD) && chest.getItem(0).getCount() == 1, "Tux should take one bread, slot 0 is " + chest.getItem(0));
+			h.assertTrue(chest.getItem(1).is(Items.STICK) && chest.getItem(1).getCount() == 1, "the stick stays");
+			h.assertTrue(tux.isAlive(), "Tux is fine");
+		});
+	}
+
+	/** An item frame holding an apple: Tux takes the apple, the empty frame stays. */
+	@GameTest(maxTicks = 300)
+	public void tuxStealsTheAppleFromAnItemFrame(GameTestHelper h) {
+		floor(h);
+		h.setBlock(new BlockPos(3, 1, 0), Blocks.STONE.defaultBlockState());
+		ItemFrame frame = new ItemFrame(h.getLevel(), h.absolutePos(new BlockPos(3, 1, 1)), Direction.SOUTH);
+		h.getLevel().addFreshEntity(frame);
+		frame.setItem(new ItemStack(Items.APPLE));
+		h.assertTrue(frame.getItem().is(Items.APPLE), "frame holds the apple");
+		h.spawn(ModTux.TUX, new Vec3(0.5, 1.0, 2.5));
+		h.succeedWhen(() -> h.assertTrue(frame.isAlive() && frame.getItem().isEmpty(), "the frame should be empty, has " + frame.getItem()));
 	}
 }

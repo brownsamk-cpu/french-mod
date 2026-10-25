@@ -3,6 +3,7 @@ package com.frenchmod.tux;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -31,11 +32,18 @@ import org.jspecify.annotations.Nullable;
 /**
  * Tux, the family's real cat: a fluffy long-haired black cat with a big white chest. A normal peaceful mob that wanders around.
  * When food is dropped within 8 blocks, Tux walks over, and when Tux gets to it (about 1 block) the food just disappears
- * (one stack) with a little heart.
+ * (one stack) with a little heart. Since 0.3.3 Tux also steals food from chests, barrels and item frames (StealFoodGoal).
  */
 public class Tux extends Animal {
 	public static final double FOOD_SEARCH_RANGE = 8.0;
 	public static final double EAT_RANGE = 1.0;
+	/** About 10 seconds between steals from chests and item frames. */
+	public static final int STEAL_COOLDOWN = 200;
+	/** How long a chest lid stays open after Tux takes something. */
+	public static final int LID_OPEN_TICKS = 30;
+	int stealCooldown;
+	private @Nullable BlockPos openLidPos;
+	private int lidTicks;
 
 	public Tux(EntityType<? extends Tux> type, Level level) {
 		super(type, level);
@@ -54,6 +62,7 @@ public class Tux extends Animal {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
 		this.goalSelector.addGoal(2, new GoToDroppedFoodGoal(this));
+		this.goalSelector.addGoal(3, new StealFoodGoal(this));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
 		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -63,6 +72,11 @@ public class Tux extends Animal {
 	public void aiStep() {
 		super.aiStep();
 		if (this.level() instanceof ServerLevel level && this.isAlive()) {
+			if (this.stealCooldown > 0) this.stealCooldown--;
+			if (this.openLidPos != null && --this.lidTicks <= 0) {
+				StealFoodGoal.setLid(level, this.openLidPos, false);
+				this.openLidPos = null;
+			}
 			List<ItemEntity> close = level.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(EAT_RANGE), Tux::isDroppedFood);
 			if (!close.isEmpty()) {
 				ItemEntity food = close.get(0);
@@ -70,6 +84,25 @@ public class Tux extends Animal {
 				level.sendParticles(ParticleTypes.HEART, this.getX(), this.getY() + 0.7, this.getZ(), 2, 0.2, 0.1, 0.2, 0.0);
 			}
 		}
+	}
+
+	void openLid(ServerLevel level, BlockPos pos) {
+		if (this.openLidPos != null && !this.openLidPos.equals(pos)) StealFoodGoal.setLid(level, this.openLidPos, false);
+		StealFoodGoal.setLid(level, pos, true);
+		this.openLidPos = pos;
+		this.lidTicks = LID_OPEN_TICKS;
+	}
+
+	/** True while a chest lid Tux opened is still open (for screenshots). */
+	public boolean isLidOpen() {
+		return this.openLidPos != null;
+	}
+
+	@Override
+	public void remove(RemovalReason reason) {
+		if (this.openLidPos != null && this.level() instanceof ServerLevel level) StealFoodGoal.setLid(level, this.openLidPos, false);
+		this.openLidPos = null;
+		super.remove(reason);
 	}
 
 	private static CatSoundVariant.CatSoundSet sounds() {

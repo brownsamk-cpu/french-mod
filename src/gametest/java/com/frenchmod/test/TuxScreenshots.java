@@ -15,7 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 /**
- * Dev-only: real in-game screenshots of Tux (close-up, Tux next to dropped food, and after the food is gone).
+ * Dev-only: real in-game screenshots of Tux (close-up, Tux next to dropped food, and after the food is gone; since 0.3.3 Tux at
+ * an open chest he is stealing from, and Tux by the item frame he emptied).
  * Run with ./gradlew runClientGameTest -PclientShots (see SteelScreenshots for the headless settings).
  */
 public class TuxScreenshots implements FabricClientGameTest {
@@ -56,6 +57,29 @@ public class TuxScreenshots implements FabricClientGameTest {
 			server.runOnServer(s -> s.overworld().getEntities(ModTux.TUX, t -> true).forEach(t -> t.setNoAi(false)));
 			context.waitTicks(160);
 			save(context, "frenchmod_tux_food_gone", out);
+
+			// 0.3.3: Tux steals one bread from a chest; the shot is taken while the lid is open.
+			server.runCommand("kill @e[type=frenchmod:tux]");
+			server.runCommand("kill @e[type=item]");
+			server.runCommand("setblock 0 100 -3 minecraft:chest[facing=south]{Items:[{Slot:0b,id:\"minecraft:bread\",count:3},{Slot:1b,id:\"minecraft:stick\",count:1}]}");
+			server.runCommand("tp @a 2.5 101 1.5 153 30");
+			context.waitTicks(30);
+			server.runCommand("summon frenchmod:tux -3.5 100 -1.5");
+			server.waitFor(s -> s.overworld().getEntities(ModTux.TUX, t -> t.isLidOpen()).size() > 0, 600);
+			context.waitTicks(6);
+			save(context, "frenchmod_tux_chest", out);
+
+			// 0.3.3: Tux takes the apple out of an item frame; the empty frame stays on the wall.
+			server.runCommand("kill @e[type=frenchmod:tux]");
+			server.runCommand("setblock 0 100 -3 minecraft:air");
+			server.runCommand("fill -2 100 -4 2 101 -4 minecraft:stone_bricks");
+			server.runCommand("summon minecraft:item_frame 0 100 -3 {Facing:3b,Item:{id:\"minecraft:apple\",count:1}}");
+			server.runCommand("tp @a 0.5 101 1.5 180 25");
+			context.waitTicks(30);
+			server.runCommand("summon frenchmod:tux -3.5 100 0.5");
+			server.waitFor(s -> s.overworld().getEntities(net.minecraft.world.level.entity.EntityTypeTest.forClass(net.minecraft.world.entity.decoration.ItemFrame.class), f -> f.getItem().isEmpty()).size() > 0, 600);
+			context.waitTicks(15);
+			save(context, "frenchmod_tux_item_frame", out);
 		}
 	}
 
