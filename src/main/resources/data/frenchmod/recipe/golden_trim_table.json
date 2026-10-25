@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "P": "#minecraft:planks",
+    "K": "minecraft:pink_dye",
+    "G": "minecraft:gold_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "PKP",
+    "SGS",
+    "S S"
+  ],
+  "result": {
+    "id": "frenchmod:golden_trim_table"
+  }
+}

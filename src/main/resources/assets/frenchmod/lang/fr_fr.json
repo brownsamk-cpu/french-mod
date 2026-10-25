@@ -18,5 +18,6 @@
   "block.frenchmod.fancy_bed": "Lit Chic",
   "block.frenchmod.couch": "Canapé",
   "block.frenchmod.lamp": "Lampe",
-  "entity.frenchmod.seat": "Siège"
+  "entity.frenchmod.seat": "Siège",
+  "block.frenchmod.golden_trim_table": "La Table à Bordure Dorée"
 }

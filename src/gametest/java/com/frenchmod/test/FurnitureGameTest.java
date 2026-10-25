@@ -49,6 +49,22 @@ public class FurnitureGameTest {
 		h.succeed();
 	}
 
+	/** The Golden Trim Table places facing every way, is in the tab, and drops itself. */
+	@GameTest
+	public void goldenTrimTablePlacesAndDropsItself(GameTestHelper h) {
+		Block b = ModFurniture.GOLDEN_TRIM_TABLE;
+		for (Direction d : Direction.Plane.HORIZONTAL) {
+			BlockPos rel = new BlockPos(1, 1, 1);
+			h.setBlock(rel, b.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, d));
+			h.assertBlockPresent(b, rel);
+			h.assertTrue(h.getBlockState(rel).getValue(HorizontalDirectionalBlock.FACING) == d, "faces " + d);
+			List<ItemStack> drops = Block.getDrops(h.getBlockState(rel), h.getLevel(), h.absolutePos(rel), null);
+			h.assertTrue(drops.size() == 1 && drops.get(0).is(ModFurniture.GOLDEN_TRIM_TABLE_ITEM), "drops itself, got " + drops);
+		}
+		h.assertTrue(ModSteel.ITEMS.contains(ModFurniture.GOLDEN_TRIM_TABLE_ITEM), "in the creative tab");
+		h.succeed();
+	}
+
 	/** The Fancy Bed is a real bed: two halves, sleepable (an AbstractBedBlock with a sleep height), and only the head drops one bed. */
 	@GameTest
 	public void fancyBedIsARealBed(GameTestHelper h) {

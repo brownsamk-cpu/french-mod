@@ -44,6 +44,9 @@ public class FurnitureScreenshots implements FabricClientGameTest {
 					"setblock -4 100 -4 frenchmod:fancy_bed[facing=north,part=head]",
 					"setblock -4 100 -3 frenchmod:fancy_bed[facing=north,part=foot]",
 					"setblock 4 100 -5 frenchmod:lamp[facing=south,lit=true]",
+					// The Golden Trim Table (0.3.1), beside the Table, with a lamp next to it.
+					"setblock 3 100 -3 frenchmod:golden_trim_table[facing=south]",
+					"setblock 4 100 -3 frenchmod:lamp[facing=south,lit=true]",
 					"kill @e[type=item]")) {
 				server.runCommand(cmd);
 			}
@@ -54,6 +57,7 @@ public class FurnitureScreenshots implements FabricClientGameTest {
 			server.runCommand("item replace entity @a hotbar.2 with frenchmod:fancy_bed");
 			server.runCommand("item replace entity @a hotbar.3 with frenchmod:couch");
 			server.runCommand("item replace entity @a hotbar.4 with frenchmod:lamp");
+			server.runCommand("item replace entity @a hotbar.5 with frenchmod:golden_trim_table");
 			server.runCommand("tp @a 0.5 100 2.5 180 15");
 			context.runOnClient(mc -> mc.player.getInventory().setSelectedSlot(4));
 			sp.getConnection().waitForChunksRender();
@@ -88,6 +92,11 @@ public class FurnitureScreenshots implements FabricClientGameTest {
 			server.runCommand("tp @a 2.5 100 0.5 150 25");
 			context.waitTicks(30);
 			save(context, "frenchmod_furniture_closeup", out);
+
+			// 5) Close-up of the Golden Trim Table next to the Table.
+			server.runCommand("tp @a 2.5 100 -0.8 180 35");
+			context.waitTicks(30);
+			save(context, "frenchmod_golden_trim_table_closeup", out);
 		}
 	}
 

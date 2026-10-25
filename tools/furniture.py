@@ -29,6 +29,8 @@ PALETTE = {
     'y': (226, 186, 78), 'Y': (252, 222, 122), 'o': (184, 144, 52),
     # white linen
     'W': (250, 250, 247), 'g': (232, 232, 226), 'G': (214, 214, 208),
+    # sugar pink (for the Golden Trim Table)
+    'p': (248, 200, 214), 'P': (255, 222, 232), 'q': (232, 176, 196), 'V': (255, 252, 252),
     # lamp shade, glowing (warm) and off
     'h': (255, 232, 160), 'H': (255, 246, 206), 'a': (246, 204, 116),
     'f': (226, 216, 192), 'F': (238, 230, 210), 'e': (206, 194, 168),
@@ -62,6 +64,13 @@ TEXTURES = {
         'gggggggggggggggg', 'WWWWWWWWWWWWWWWW', 'WWWWWgWWWWWWWWWW', 'WWWWWWWWWWWWWWgW',
         'WWWWWWWWWWWWWWWW', 'gggggggggggggggg', 'WWWWWWWWWWWWWWWW', 'WWgWWWWWWWWgWWWW',
         'WWWWWWWWWWWWWWWW', 'WWWWWWWgWWWWWWWW', 'WWWWWWWWWWWWWWWW', 'GGGGGGGGGGGGGGGG',
+    ],
+    # Golden Trim Table top: white painted wood with a sugar pink wash (plain, no flowers).
+    'sugar_pink_wood': [
+        'VVVVVVVVVPVVVVVV', 'PPPPpPPPPPPPPpPP', 'PPPPPPPpPPPPPPPP', 'qqqqqqqqqqqqqqqq',
+        'VVVPVVVVVVVVVVVV', 'PPPPPPPPPpPPPPPP', 'PPpPPPPPPPPPPPpP', 'qqqqqqqqqqqqqqqq',
+        'VVVVVVVVVVPVVVVV', 'PPPPPPpPPPPPPPPP', 'PPPPPPPPPPPpPPPP', 'qqqqqqqqqqqqqqqq',
+        'VVVVVVPVVVVVVVVP', 'PpPPPPPPPPPPPPPP', 'PPPPPPPPpPPPPPPP', 'qqqqqqqqqqqqqqqq',
     ],
     # Lamp shade, switched on: warm glow, brightest in the middle.
     'lamp_shade_on': [
@@ -108,6 +117,16 @@ COUCH = [
     ([0, 7, 1], [2, 13, 12], 'cream_wood'), ([14, 7, 1], [16, 13, 12], 'cream_wood'),
     ([0, 13, 1], [2, 14, 12], 'gold_trim'), ([14, 13, 1], [16, 14, 12], 'gold_trim'),
 ]
+# The Golden Trim Table: the same shape as the Table, white and sugar pink, with a thick gold edge around the top.
+GOLDEN_TRIM_TABLE = [
+    ([0, 14, 0], [16, 16, 16], 'sugar_pink_wood'),
+    ([-0.01, 13.5, -0.01], [16.01, 14.5, 16.01], 'gold_trim'),
+    ([1, 13, 1], [15, 13.5, 15], 'gold_trim'),
+    ([1.5, 0, 1.5], [3.5, 13, 3.5], 'white_linen'), ([12.5, 0, 1.5], [14.5, 13, 3.5], 'white_linen'),
+    ([1.5, 0, 12.5], [3.5, 13, 14.5], 'white_linen'), ([12.5, 0, 12.5], [14.5, 13, 14.5], 'white_linen'),
+    ([1, 0, 1], [4, 1, 4], 'gold_trim'), ([12, 0, 1], [15, 1, 4], 'gold_trim'),
+    ([1, 0, 12], [4, 1, 15], 'gold_trim'), ([12, 0, 12], [15, 1, 15], 'gold_trim'),
+]
 LAMP = lambda shade: [
     ([5, 0, 5], [11, 1, 11], 'gold_trim'),
     ([6.5, 1, 6.5], [9.5, 2, 9.5], 'gold_trim'),
@@ -134,10 +153,11 @@ BED_FOOT = [
     ([0, 12, 14], [16, 13, 16], 'gold_trim'),
 ]
 
-PIECES = {'chair': CHAIR, 'table': TABLE, 'couch': COUCH, 'lamp': LAMP('lamp_shade_off'), 'lamp_on': LAMP('lamp_shade_on'),
+PIECES = {'chair': CHAIR, 'table': TABLE, 'golden_trim_table': GOLDEN_TRIM_TABLE, 'couch': COUCH, 'lamp': LAMP('lamp_shade_off'), 'lamp_on': LAMP('lamp_shade_on'),
           'fancy_bed_head': BED_HEAD, 'fancy_bed_foot': BED_FOOT}
 NAMES = {'chair': ('Chair', 'Chaise'), 'table': ('Table', 'Table'), 'fancy_bed': ('Fancy Bed', 'Lit Chic'),
-         'couch': ('Couch', 'Canapé'), 'lamp': ('Lamp', 'Lampe')}
+         'couch': ('Couch', 'Canapé'), 'lamp': ('Lamp', 'Lampe'),
+         'golden_trim_table': ('The Golden Trim Table', 'La Table à Bordure Dorée')}
 FACING_Y = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
 
 
@@ -192,7 +212,7 @@ def main():
         write_json(os.path.join(ASSETS, 'models', 'block', name + '.json'), model(boxes))
 
     # Blockstates: facing-aware (the front faces whoever placed it). The lamp also has lit=true/false.
-    for name in ('chair', 'table', 'couch'):
+    for name in ('chair', 'table', 'couch', 'golden_trim_table'):
         write_json(os.path.join(ASSETS, 'blockstates', name + '.json'), {'variants': {
             f'facing={f}': {'model': f'{MOD}:block/{name}', **({'y': y} if y else {})} for f, y in FACING_Y.items()}})
     write_json(os.path.join(ASSETS, 'blockstates', 'lamp.json'), {'variants': {
@@ -203,7 +223,7 @@ def main():
         for f, y in FACING_Y.items() for p in ('foot', 'head') for o in (False, True)}})
 
     # Item models (the lamp shows switched on in your inventory; the bed shows both halves, like a vanilla bed).
-    for name in ('chair', 'table', 'couch'):
+    for name in ('chair', 'table', 'couch', 'golden_trim_table'):
         write_json(os.path.join(ASSETS, 'items', name + '.json'), {'model': {'type': 'minecraft:model', 'model': f'{MOD}:block/{name}'}})
     write_json(os.path.join(ASSETS, 'items', 'lamp.json'), {'model': {'type': 'minecraft:model', 'model': f'{MOD}:block/lamp_on'}})
     write_json(os.path.join(ASSETS, 'items', 'fancy_bed.json'), {'model': {'type': 'minecraft:composite', 'models': [
@@ -231,6 +251,7 @@ def main():
     recipes = {
         'chair': ({'P': P, 'W': BW, 'S': S}, ['P  ', 'PWP', 'S S']),
         'table': ({'P': P, 'G': GN, 'S': S}, ['PPP', 'SGS', 'S S']),
+        'golden_trim_table': ({'P': P, 'K': 'minecraft:pink_dye', 'G': 'minecraft:gold_ingot', 'S': S}, ['PKP', 'SGS', 'S S']),
         'couch': ({'P': P, 'W': BW, 'G': GN}, ['W  ', 'WWW', 'PGP']),
         'fancy_bed': ({'P': P, 'W': BW, 'L': WW, 'G': GN}, ['GLG', 'WWW', 'PPP']),
         'lamp': ({'L': WW, 'T': 'minecraft:torch', 'G': 'minecraft:gold_ingot'}, [' L ', ' T ', ' G ']),

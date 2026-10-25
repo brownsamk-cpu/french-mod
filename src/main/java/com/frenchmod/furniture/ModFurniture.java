@@ -34,6 +34,9 @@ public final class ModFurniture {
 	public static final Block CHAIR = block("chair", p -> new SeatBlock(Shapes.or(Block.box(2, 0, 2, 14, 10, 14), Block.box(2, 10, 12, 14, 16, 14)),
 			0.6875, p), wood());
 	public static final Block TABLE = block("table", p -> new FurnitureBlock(Shapes.or(Block.box(0, 13, 0, 16, 16, 16), Block.box(1.5, 0, 1.5, 14.5, 13, 14.5)), p), wood());
+	/** The Golden Trim Table (0.3.1): table-shaped, white with sugar pink, a golden trim. */
+	public static final Block GOLDEN_TRIM_TABLE = block("golden_trim_table", p -> new FurnitureBlock(Shapes.or(Block.box(0, 13, 0, 16, 16, 16),
+			Block.box(1.5, 0, 1.5, 14.5, 13, 14.5)), p), wood().mapColor(MapColor.COLOR_PINK));
 	public static final Block FANCY_BED = block("fancy_bed", FancyBedBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).sound(SoundType.WOOD)
 			.strength(0.2F).bounceRestitution(0.75F).fallDistanceReduction(0.5F).noOcclusion().ignitedByLava().pushReaction(PushReaction.POPPED));
 	public static final Block COUCH = block("couch", p -> new SeatBlock(Shapes.or(Block.box(0, 0, 1, 16, 10, 15), Block.box(0, 10, 12, 16, 16, 15)),
@@ -46,7 +49,8 @@ public final class ModFurniture {
 	public static final Item FANCY_BED_ITEM = item(FANCY_BED, new Item.Properties().stacksTo(1));
 	public static final Item COUCH_ITEM = item(COUCH, new Item.Properties());
 	public static final Item LAMP_ITEM = item(LAMP, new Item.Properties());
-	public static final List<Block> BLOCKS = List.of(CHAIR, TABLE, FANCY_BED, COUCH, LAMP);
+	public static final Item GOLDEN_TRIM_TABLE_ITEM = item(GOLDEN_TRIM_TABLE, new Item.Properties());
+	public static final List<Block> BLOCKS = List.of(CHAIR, TABLE, FANCY_BED, COUCH, LAMP, GOLDEN_TRIM_TABLE);
 
 	public static final ResourceKey<EntityType<?>> SEAT_KEY = ResourceKey.create(Registries.ENTITY_TYPE, FrenchMod.id("seat"));
 	public static final EntityType<Seat> SEAT = Registry.register(BuiltInRegistries.ENTITY_TYPE, SEAT_KEY,
