@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "C": "minecraft:white_candle",
+    "G": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    " C ",
+    " G "
+  ],
+  "result": {
+    "id": "frenchmod:french_candle"
+  }
+}

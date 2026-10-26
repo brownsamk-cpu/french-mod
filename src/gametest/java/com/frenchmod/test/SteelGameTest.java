@@ -204,7 +204,7 @@ public class SteelGameTest {
 		helper.assertTrue(block.is(BlockTags.BEACON_BASE_BLOCKS) && block.is(BlockTags.MINEABLE_WITH_PICKAXE) && block.is(BlockTags.NEEDS_STONE_TOOL), "block tags");
 		helper.assertTrue(!new ItemStack(Items.WOODEN_PICKAXE).isCorrectToolForDrops(block) && new ItemStack(Items.STONE_PICKAXE).isCorrectToolForDrops(block),
 				"Block of Steel needs a stone pickaxe or better, like iron");
-		helper.assertTrue(ModSteel.ITEMS.size() == 20, "13 steel items + 6 furniture + Tux egg in the French Mod tab, got " + ModSteel.ITEMS.size());
+		helper.assertTrue(ModSteel.ITEMS.size() == 23, "13 steel items + 9 furniture + Tux egg in the French Mod tab, got " + ModSteel.ITEMS.size());
 		helper.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(ModSteel.TAB_KEY) == ModSteel.TAB, "French Mod tab registered");
 		helper.succeed();
 	}

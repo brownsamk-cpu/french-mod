@@ -13,13 +13,16 @@
   "item.frenchmod.steel_boots": "Steel Boots",
   "block.frenchmod.steel_block": "Block of Steel",
   "itemGroup.frenchmod.french_mod": "French Mod",
+  "entity.frenchmod.tux": "Tux",
+  "item.frenchmod.tux_spawn_egg": "Tux Spawn Egg",
   "block.frenchmod.chair": "Chair",
   "block.frenchmod.table": "Table",
   "block.frenchmod.fancy_bed": "Fancy Bed",
   "block.frenchmod.couch": "Couch",
   "block.frenchmod.lamp": "Lamp",
-  "entity.frenchmod.seat": "Seat",
   "block.frenchmod.golden_trim_table": "The Golden Trim Table",
-  "entity.frenchmod.tux": "Tux",
-  "item.frenchmod.tux_spawn_egg": "Tux Spawn Egg"
+  "block.frenchmod.bathtub": "Bathtub",
+  "block.frenchmod.toilet": "Toilet",
+  "block.frenchmod.french_candle": "French Candle",
+  "entity.frenchmod.seat": "Seat"
 }

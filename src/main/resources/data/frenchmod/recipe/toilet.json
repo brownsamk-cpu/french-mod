@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "Q": "minecraft:quartz_block",
+    "B": "minecraft:water_bucket",
+    "N": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "NQ ",
+    "QBQ",
+    " Q "
+  ],
+  "result": {
+    "id": "frenchmod:toilet"
+  }
+}

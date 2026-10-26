@@ -15,7 +15,8 @@
       "com.frenchmod.test.SteelScreenshots",
       "com.frenchmod.test.HideSeekScreenshots",
       "com.frenchmod.test.FurnitureScreenshots",
-      "com.frenchmod.test.TuxScreenshots"
+      "com.frenchmod.test.TuxScreenshots",
+      "com.frenchmod.test.BathroomScreenshots"
     ]
   },
   "depends": {

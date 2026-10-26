@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "frenchmod:block/toilet"
+    },
+    "facing=east": {
+      "model": "frenchmod:block/toilet",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "frenchmod:block/toilet",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "frenchmod:block/toilet",
+      "y": 270
+    }
+  }
+}

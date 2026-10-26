@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "frenchmod:steel_block"
+    "frenchmod:steel_block",
+    "frenchmod:bathtub",
+    "frenchmod:toilet",
+    "frenchmod:french_candle"
   ]
 }

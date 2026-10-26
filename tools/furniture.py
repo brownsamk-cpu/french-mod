@@ -34,6 +34,12 @@ PALETTE = {
     # lamp shade, glowing (warm) and off
     'h': (255, 232, 160), 'H': (255, 246, 206), 'a': (246, 204, 116),
     'f': (226, 216, 192), 'F': (238, 230, 210), 'e': (206, 194, 168),
+    # 0.4.0: shiny white porcelain (bathtub, toilet)
+    'O': (255, 255, 255), 'i': (238, 242, 246), 'I': (218, 224, 232),
+    # bath water
+    'r': (92, 166, 232), 'R': (130, 196, 246), 't': (186, 226, 255),
+    # candle wax, flame and wick
+    'm': (250, 240, 214), 'M': (236, 222, 190), 'k': (255, 236, 120), 'K': (255, 176, 60), 'j': (255, 252, 214), 'x': (60, 50, 40),
 }
 
 TEXTURES = {
@@ -86,6 +92,35 @@ TEXTURES = {
         'ffffffffffffffff', 'ffffFfffffffffff', 'ffffffffffffFfff', 'ffffffffffffffff',
         'fffffffFffffffff', 'ffffffffffffffff', 'efffffffffffffff', 'eeeeeeeeeeeeeeee',
     ],
+    # 0.4.0: shiny white porcelain with a soft shine streak.
+    'white_porcelain': [
+        'OOOOOOOOOOOOOOOO', 'OiiiiiiiiiiiiiiO', 'OiOOiiiiiiiiiiiO', 'OiOOiiiiiiiiiiiO',
+        'OiiOiiiiiiiiiiiO', 'OiiiiiiiiiiiiiiO', 'OiiiiiiiiiiiiiiO', 'OiiiiiiiiiiiiiiO',
+        'OiiiiiiiiiiiiiiO', 'OiiiiiiiiiiiiiiO', 'OiiiiiiiiiiiiiiO', 'OiiiiiiiiiiiiiiO',
+        'OiiiiiiiiiiiOiiO', 'OiiiiiiiiiiiiiiO', 'OIIIIIIIIIIIIIIO', 'IIIIIIIIIIIIIIII',
+    ],
+    # Clear blue bath water with little ripples.
+    'bath_water': [
+        'rrrrRRrrrrrrrrrr', 'rrRRttRRrrrrrrRr', 'rrrrRRrrrrrrRRtR', 'rrrrrrrrrrrrrrRr',
+        'rrrrrrrrRRrrrrrr', 'rRrrrrRRttRRrrrr', 'RtRrrrrrRRrrrrrr', 'rRrrrrrrrrrrrrrr',
+        'rrrrrrrrrrrrRRrr', 'rrrrRRrrrrRRttRR', 'rrRRttRRrrrrRRrr', 'rrrrRRrrrrrrrrrr',
+        'rrrrrrrrrrrrrrrr', 'rrrrrrrRRrrrrrrR', 'RRrrrrRRttRRrrRt', 'rrrrrrrrRRrrrrrr',
+    ],
+    # Cream candle wax with a little drip.
+    'candle_wax': [
+        'mmmmmmmmmmmmmmmm', 'mmmmmmmmmmmmmmmm', 'mmMmmmmmmmmmMmmm', 'mmMmmmmmmmmmMmmm',
+        'mmmmmmmmmmmmMmmm', 'mmmmmmmmmmmmmmmm', 'mmmmmmmmmmmmmmmm', 'mmmmmmMmmmmmmmmm',
+        'mmmmmmmmmmmmmmmm', 'mmmmmmmmmmmmmmmm', 'mmmmmmmmmmmmmmmm', 'mmmMmmmmmmmmmmmm',
+        'mmmmmmmmmmmmmmmm', 'mmmmmmmmmmMmmmmm', 'mmmmmmmmmmmmmmmm', 'MMMMMMMMMMMMMMMM',
+    ],
+    # A warm little flame: bright in the middle, orange at the edges.
+    'candle_flame': [
+        'KKKKKKKKKKKKKKKK', 'KKKKKKkkkkKKKKKK', 'KKKKKkkkkkkKKKKK', 'KKKKkkkjjkkkKKKK',
+        'KKKkkkjjjjkkkKKK', 'KKKkkjjjjjjkkKKK', 'KKkkkjjjjjjkkkKK', 'KKkkjjjjjjjjkkKK',
+        'KKkkjjjjjjjjkkKK', 'KKkkkjjjjjjkkkKK', 'KKKkkjjjjjjkkKKK', 'KKKkkkjjjjkkkKKK',
+        'KKKKkkkjjkkkKKKK', 'KKKKKkkkkkkKKKKK', 'KKKKKKkkkkKKKKKK', 'KKKKKKKKKKKKKKKK',
+    ],
+    'candle_wick': ['x' * 16] * 16,
 }
 
 # ---------------------------------------------------------------- shapes (the boxes each piece is made of)
@@ -153,11 +188,53 @@ BED_FOOT = [
     ([0, 12, 14], [16, 13, 16], 'gold_trim'),
 ]
 
+# 0.4.0 Bathtub: two blocks long. The head half (where you sit) has the rounded end wall at the north edge;
+# the foot half (behind it) has the end wall at the south edge with a gold tap. Both have little gold feet.
+def _tub(head, water):
+    end = ([0, 2, 0], [16, 10, 1.5]) if head else ([0, 2, 14.5], [16, 10, 16])
+    zf = (1, 3) if head else (13, 15)
+    boxes = [
+        ([1, 0, zf[0]], [3, 2, zf[1]], 'gold_trim'), ([13, 0, zf[0]], [15, 2, zf[1]], 'gold_trim'),
+        ([0, 2, 0], [16, 3, 16], 'white_porcelain'),
+        ([0, 2, 0], [1.5, 10, 16], 'white_porcelain'), ([14.5, 2, 0], [16, 10, 16], 'white_porcelain'),
+        (end[0], end[1], 'white_porcelain'),
+        ([-0.01, 10, 0], [1.5, 10.5, 16], 'gold_trim'), ([14.5, 10, 0], [16.01, 10.5, 16], 'gold_trim'),
+    ]
+    if not head:
+        boxes += [([7, 10, 13], [9, 13, 15], 'gold_trim'), ([7, 11.5, 10.5], [9, 12.5, 13], 'gold_trim'),
+                  ([5, 10.5, 14], [6.5, 11.5, 15.5], 'gold_trim'), ([9.5, 10.5, 14], [11, 11.5, 15.5], 'gold_trim')]
+    if water:
+        boxes.append(([1.5, 3, 1.5 if head else 0], [14.5, 8.5, 16 if head else 14.5], 'bath_water'))
+    return boxes
+
+# 0.4.0 Toilet: shiny white with a closed lid (nothing gross!) and a gold flush handle on the tank.
+TOILET = [
+    ([5, 0, 4], [11, 5, 12], 'white_porcelain'),
+    ([3, 5, 2], [13, 8, 13], 'white_porcelain'),
+    ([3, 8, 2], [13, 9, 12], 'white_porcelain'),
+    ([2, 5, 12], [14, 16, 16], 'white_porcelain'),
+    ([1.5, 16, 11.5], [14.5, 17, 16], 'white_porcelain'),
+    ([3, 13, 11], [6, 14, 12], 'gold_trim'),
+]
+# 0.4.0 French Candle: a cream candle in a little gold holder; the lit one has a flame on its wick.
+CANDLE = lambda lit: [
+    ([4, 0, 4], [12, 1, 12], 'gold_trim'),
+    ([7, 1, 7], [9, 3, 9], 'gold_trim'),
+    ([5.5, 3, 5.5], [10.5, 5, 10.5], 'gold_trim'),
+    ([11, 1, 7.5], [13.5, 2, 8.5], 'gold_trim'),
+    ([6.5, 5, 6.5], [9.5, 12, 9.5], 'candle_wax'),
+    ([7.75, 12, 7.75], [8.25, 13, 8.25], 'candle_wick'),
+] + ([([7, 12.5, 7], [9, 16, 9], 'candle_flame')] if lit else [])
+
 PIECES = {'chair': CHAIR, 'table': TABLE, 'golden_trim_table': GOLDEN_TRIM_TABLE, 'couch': COUCH, 'lamp': LAMP('lamp_shade_off'), 'lamp_on': LAMP('lamp_shade_on'),
-          'fancy_bed_head': BED_HEAD, 'fancy_bed_foot': BED_FOOT}
+          'fancy_bed_head': BED_HEAD, 'fancy_bed_foot': BED_FOOT,
+          'bathtub_head': _tub(True, False), 'bathtub_foot': _tub(False, False),
+          'bathtub_head_filled': _tub(True, True), 'bathtub_foot_filled': _tub(False, True),
+          'toilet': TOILET, 'french_candle': CANDLE(False), 'french_candle_lit': CANDLE(True)}
 NAMES = {'chair': ('Chair', 'Chaise'), 'table': ('Table', 'Table'), 'fancy_bed': ('Fancy Bed', 'Lit Chic'),
          'couch': ('Couch', 'Canapé'), 'lamp': ('Lamp', 'Lampe'),
-         'golden_trim_table': ('The Golden Trim Table', 'La Table à Bordure Dorée')}
+         'golden_trim_table': ('The Golden Trim Table', 'La Table à Bordure Dorée'),
+         'bathtub': ('Bathtub', 'Baignoire'), 'toilet': ('Toilet', 'Toilettes'), 'french_candle': ('French Candle', 'Bougie Française')}
 FACING_Y = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
 
 
@@ -196,11 +273,18 @@ def element(frm, to, tex):
     return {'from': frm, 'to': to, 'faces': faces}
 
 
+GLOWING = {'candle_flame'}  # textures that glow in the dark (full brightness)
+
+
 def model(boxes):
     textures = sorted({b[2] for b in boxes})
+    elements = [element(*b) for b in boxes]
+    for e, b in zip(elements, boxes):
+        if b[2] in GLOWING:
+            e['light_emission'] = 15
     return {'parent': 'minecraft:block/block', 'ambientocclusion': False,
             'textures': {'particle': f'{MOD}:block/cream_wood', **{t: f'{MOD}:block/{t}' for t in textures}},
-            'elements': [element(*b) for b in boxes]}
+            'elements': elements}
 
 
 def main():
@@ -222,6 +306,22 @@ def main():
         f'facing={f},occupied={str(o).lower()},part={p}': {'model': f'{MOD}:block/fancy_bed_{p}', **({'y': y} if y else {})}
         for f, y in FACING_Y.items() for p in ('foot', 'head') for o in (False, True)}})
 
+    # 0.4.0 blockstates: the bathtub (part + filled), the toilet, and the candle (lit).
+    write_json(os.path.join(ASSETS, 'blockstates', 'bathtub.json'), {'variants': {
+        f'facing={f},filled={str(w).lower()},part={p}': {'model': f'{MOD}:block/bathtub_{p}' + ('_filled' if w else ''), **({'y': y} if y else {})}
+        for f, y in FACING_Y.items() for p in ('foot', 'head') for w in (False, True)}})
+    write_json(os.path.join(ASSETS, 'blockstates', 'toilet.json'), {'variants': {
+        f'facing={f}': {'model': f'{MOD}:block/toilet', **({'y': y} if y else {})} for f, y in FACING_Y.items()}})
+    write_json(os.path.join(ASSETS, 'blockstates', 'french_candle.json'), {'variants': {
+        f'facing={f},lit={str(lit).lower()}': {'model': f'{MOD}:block/french_candle' + ('_lit' if lit else ''), **({'y': y} if y else {})}
+        for f, y in FACING_Y.items() for lit in (False, True)}})
+    write_json(os.path.join(ASSETS, 'items', 'toilet.json'), {'model': {'type': 'minecraft:model', 'model': f'{MOD}:block/toilet'}})
+    write_json(os.path.join(ASSETS, 'items', 'french_candle.json'), {'model': {'type': 'minecraft:model', 'model': f'{MOD}:block/french_candle_lit'}})
+    write_json(os.path.join(ASSETS, 'items', 'bathtub.json'), {'model': {'type': 'minecraft:composite', 'models': [
+        {'type': 'minecraft:model', 'model': f'{MOD}:block/bathtub_head'},
+        {'type': 'minecraft:model', 'model': f'{MOD}:block/bathtub_foot',
+         'transformation': {'left_rotation': [0, 0, 0, 1], 'right_rotation': [0, 0, 0, 1], 'scale': [1, 1, 1], 'translation': [0, 0, 1]}}]}})
+
     # Item models (the lamp shows switched on in your inventory; the bed shows both halves, like a vanilla bed).
     for name in ('chair', 'table', 'couch', 'golden_trim_table'):
         write_json(os.path.join(ASSETS, 'items', name + '.json'), {'model': {'type': 'minecraft:model', 'model': f'{MOD}:block/{name}'}})
@@ -231,8 +331,8 @@ def main():
         {'type': 'minecraft:model', 'model': f'{MOD}:block/fancy_bed_foot',
          'transformation': {'left_rotation': [0, 0, 0, 1], 'right_rotation': [0, 0, 0, 1], 'scale': [1, 1, 1], 'translation': [0, 0, 1]}}]}})
     # Bed halves use the vanilla bed's hand/inventory poses.
-    for half in ('head', 'foot'):
-        p = os.path.join(ASSETS, 'models', 'block', f'fancy_bed_{half}.json')
+    for half in ('fancy_bed_head', 'fancy_bed_foot', 'bathtub_head', 'bathtub_foot'):
+        p = os.path.join(ASSETS, 'models', 'block', f'{half}.json')
         m = json.load(open(p))
         m['parent'] = 'minecraft:block/template_bed'
         write_json(p, m)
@@ -254,6 +354,9 @@ def main():
         'golden_trim_table': ({'P': P, 'K': 'minecraft:pink_dye', 'G': 'minecraft:gold_ingot', 'S': S}, ['PKP', 'SGS', 'S S']),
         'couch': ({'P': P, 'W': BW, 'G': GN}, ['W  ', 'WWW', 'PGP']),
         'fancy_bed': ({'P': P, 'W': BW, 'L': WW, 'G': GN}, ['GLG', 'WWW', 'PPP']),
+        'bathtub': ({'Q': 'minecraft:quartz_block', 'G': 'minecraft:gold_ingot', 'N': GN}, ['G  ', 'Q Q', 'QNQ']),
+        'toilet': ({'Q': 'minecraft:quartz_block', 'B': 'minecraft:water_bucket', 'N': GN}, ['NQ ', 'QBQ', ' Q ']),
+        'french_candle': ({'C': 'minecraft:white_candle', 'G': 'minecraft:gold_ingot'}, [' C ', ' G ']),
         'lamp': ({'L': WW, 'T': 'minecraft:torch', 'G': 'minecraft:gold_ingot'}, [' L ', ' T ', ' G ']),
     }
     for name, (key, pattern) in recipes.items():
@@ -262,8 +365,15 @@ def main():
             'pattern': pattern, 'result': {'id': f'{MOD}:{name}'}})
 
     # Mine them fastest with an axe (they're wood).
+    PORCELAIN = ('bathtub', 'toilet', 'french_candle')
     write_json(os.path.join(DATA, 'minecraft', 'tags', 'block', 'mineable', 'axe.json'),
-               {'replace': False, 'values': [f'{MOD}:{n}' for n in NAMES]})
+               {'replace': False, 'values': [f'{MOD}:{n}' for n in NAMES if n not in PORCELAIN]})
+    # The porcelain tub and toilet (and the gold candle holder) are fastest with a pickaxe.
+    # (merged into the tag tools/steel.py writes, so the steel block stays in it)
+    pick = os.path.join(DATA, 'minecraft', 'tags', 'block', 'mineable', 'pickaxe.json')
+    tag = json.load(open(pick)) if os.path.exists(pick) else {'replace': False, 'values': []}
+    tag['values'] += [f'{MOD}:{n}' for n in PORCELAIN if f'{MOD}:{n}' not in tag['values']]
+    write_json(pick, tag)
 
     # Names, merged into the existing language files.
     for lang, i in (('en_us', 0), ('fr_fr', 1)):

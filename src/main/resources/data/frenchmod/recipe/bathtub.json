@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "french_furniture",
+  "key": {
+    "Q": "minecraft:quartz_block",
+    "G": "minecraft:gold_ingot",
+    "N": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "G  ",
+    "Q Q",
+    "QNQ"
+  ],
+  "result": {
+    "id": "frenchmod:bathtub"
+  }
+}

@@ -22,7 +22,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.Shapes;
 
 /**
- * Step 3, French-cottage furniture: Chair, Table, Fancy Bed, Couch and Lamp.
+ * Step 3, French-cottage furniture: Chair, Table, Fancy Bed, Couch and Lamp (0.4.0 adds Bathtub, Toilet, French Candle).
  * Cream painted wood, soft blue fabric and gold trim. Pictures and models come from tools/furniture.py.
  */
 public final class ModFurniture {
@@ -44,13 +44,24 @@ public final class ModFurniture {
 	public static final Block LAMP = block("lamp", LampBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(0.5F).sound(SoundType.LANTERN)
 			.noOcclusion().lightLevel(state -> state.getValue(LampBlock.LIT) ? 15 : 0));
 
+	/** 0.4.0: the Bathtub, the Toilet and the French Candle. */
+	public static final Block BATHTUB = block("bathtub", BathtubBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(1.5F)
+			.sound(SoundType.STONE).noOcclusion());
+	public static final Block TOILET = block("toilet", ToiletBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(1.5F)
+			.sound(SoundType.STONE).noOcclusion());
+	public static final Block FRENCH_CANDLE = block("french_candle", FrenchCandleBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD)
+			.strength(0.3F).sound(SoundType.CANDLE).noOcclusion().lightLevel(state -> state.getValue(FrenchCandleBlock.LIT) ? 12 : 0));
+
 	public static final Item CHAIR_ITEM = item(CHAIR, new Item.Properties());
 	public static final Item TABLE_ITEM = item(TABLE, new Item.Properties());
 	public static final Item FANCY_BED_ITEM = item(FANCY_BED, new Item.Properties().stacksTo(1));
 	public static final Item COUCH_ITEM = item(COUCH, new Item.Properties());
 	public static final Item LAMP_ITEM = item(LAMP, new Item.Properties());
 	public static final Item GOLDEN_TRIM_TABLE_ITEM = item(GOLDEN_TRIM_TABLE, new Item.Properties());
-	public static final List<Block> BLOCKS = List.of(CHAIR, TABLE, FANCY_BED, COUCH, LAMP, GOLDEN_TRIM_TABLE);
+	public static final Item BATHTUB_ITEM = item(BATHTUB, new Item.Properties().stacksTo(1));
+	public static final Item TOILET_ITEM = item(TOILET, new Item.Properties());
+	public static final Item FRENCH_CANDLE_ITEM = item(FRENCH_CANDLE, new Item.Properties());
+	public static final List<Block> BLOCKS = List.of(CHAIR, TABLE, FANCY_BED, COUCH, LAMP, GOLDEN_TRIM_TABLE, BATHTUB, TOILET, FRENCH_CANDLE);
 
 	public static final ResourceKey<EntityType<?>> SEAT_KEY = ResourceKey.create(Registries.ENTITY_TYPE, FrenchMod.id("seat"));
 	public static final EntityType<Seat> SEAT = Registry.register(BuiltInRegistries.ENTITY_TYPE, SEAT_KEY,

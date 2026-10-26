@@ -3,7 +3,10 @@ package com.frenchmod.test;
 import java.util.List;
 
 import com.frenchmod.ModSteel;
+import com.frenchmod.furniture.BathtubBlock;
 import com.frenchmod.furniture.FancyBedBlock;
+import com.frenchmod.furniture.FrenchCandleBlock;
+import com.frenchmod.furniture.ToiletBlock;
 import com.frenchmod.furniture.LampBlock;
 import com.frenchmod.furniture.ModFurniture;
 import com.frenchmod.furniture.Seat;
@@ -135,6 +138,111 @@ public class FurnitureGameTest {
 		h.succeedWhen(() -> {
 			int light = h.getLevel().getBrightness(LightLayer.BLOCK, h.absolutePos(rel.east()));
 			h.assertTrue(light >= 14, "lights up next to it: " + light);
+		});
+	}
+
+	// ---------------------------------------------------------------- 0.4.0: Bathtub, Toilet, French Candle
+
+	/** The three new pieces are in the French Mod tab and drop themselves. */
+	@GameTest
+	public void newPiecesInTabAndDropThemselves(GameTestHelper h) {
+		for (Block b : List.of(ModFurniture.BATHTUB, ModFurniture.TOILET, ModFurniture.FRENCH_CANDLE)) {
+			h.assertTrue(ModSteel.ITEMS.contains(b.asItem()), b + " in the creative tab");
+			BlockPos rel = new BlockPos(1, 1, 1);
+			h.setBlock(rel, b.defaultBlockState());
+			List<ItemStack> drops = Block.getDrops(h.getBlockState(rel), h.getLevel(), h.absolutePos(rel), null);
+			h.assertTrue(drops.size() == 1 && drops.get(0).is(b.asItem()), b + " should drop itself, got " + drops);
+		}
+		h.assertTrue(h.getLevel().recipeAccess().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+				com.frenchmod.FrenchMod.id("bathtub"))).isPresent(), "bathtub recipe");
+		h.succeed();
+	}
+
+	private static void placeTub(GameTestHelper h, BlockPos head, Direction facing) {
+		BlockState s = ModFurniture.BATHTUB.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, facing);
+		h.setBlock(head, s);
+		h.setBlock(head.relative(facing.getOpposite()), s.setValue(BathtubBlock.PART, BedPart.FOOT));
+	}
+
+	/** Placing the bathtub with a player makes it two blocks long. Breaking one half removes the other. */
+	@GameTest
+	public void bathtubIsTwoBlocksLong(GameTestHelper h) {
+		BlockPos head = new BlockPos(1, 1, 1);
+		BlockState s = ModFurniture.BATHTUB.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH);
+		h.setBlock(head, s);
+		ServerPlayer p = h.makeMockServerPlayerInLevel();
+		ModFurniture.BATHTUB.setPlacedBy(h.getLevel(), h.absolutePos(head), s, p, new ItemStack(ModFurniture.BATHTUB_ITEM));
+		BlockPos foot = head.south();
+		h.assertTrue(h.getBlockState(foot).is(ModFurniture.BATHTUB) && h.getBlockState(foot).getValue(BathtubBlock.PART) == BedPart.FOOT, "foot half placed");
+		h.setBlock(foot, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+		h.succeedWhen(() -> h.assertBlockNotPresent(ModFurniture.BATHTUB, head));
+	}
+
+	/** A water bucket fills the bath (both halves) and gives you an empty bucket; the tap end lets the water out and fills it again. */
+	@GameTest
+	public void bathtubFillsWithWater(GameTestHelper h) {
+		BlockPos head = new BlockPos(1, 1, 1);
+		placeTub(h, head, Direction.NORTH);
+		BlockPos foot = head.south();
+		ServerPlayer p = h.makeMockServerPlayerInLevel();
+		p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+		p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.WATER_BUCKET));
+		h.getBlockState(head).useItemOn(p.getMainHandItem(), h.getLevel(), p, net.minecraft.world.InteractionHand.MAIN_HAND, hit(h, head));
+		h.assertTrue(h.getBlockState(head).getValue(BathtubBlock.FILLED) && h.getBlockState(foot).getValue(BathtubBlock.FILLED), "both halves full");
+		h.assertTrue(p.getMainHandItem().is(net.minecraft.world.item.Items.BUCKET), "bucket is empty now: " + p.getMainHandItem());
+		h.getBlockState(foot).useWithoutItem(h.getLevel(), p, hit(h, foot));
+		h.assertTrue(!h.getBlockState(head).getValue(BathtubBlock.FILLED) && !h.getBlockState(foot).getValue(BathtubBlock.FILLED), "tap lets water out");
+		h.getBlockState(foot).useWithoutItem(h.getLevel(), p, hit(h, foot));
+		h.assertTrue(h.getBlockState(head).getValue(BathtubBlock.FILLED), "tap fills it again");
+		h.assertTrue(!p.isPassenger(), "using the tap doesn't sit you down");
+		h.succeed();
+	}
+
+	/** You can sit in the bathtub (at the head end), even when it's full. */
+	@GameTest
+	public void bathtubCanBeSatIn(GameTestHelper h) {
+		BlockPos head = new BlockPos(1, 1, 1);
+		placeTub(h, head, Direction.NORTH);
+		((BathtubBlock) ModFurniture.BATHTUB).setFilled(h.getLevel(), h.absolutePos(head), true);
+		ServerPlayer p = h.makeMockServerPlayerInLevel();
+		h.getBlockState(head).useWithoutItem(h.getLevel(), p, hit(h, head));
+		h.assertTrue(p.getVehicle() instanceof Seat, "sitting in the bath");
+		h.succeed();
+	}
+
+	/** Clicking the toilet seat sits you down; clicking the tank flushes (and doesn't sit you down). */
+	@GameTest
+	public void toiletSitsAndFlushes(GameTestHelper h) {
+		BlockPos rel = new BlockPos(1, 1, 1);
+		h.setBlock(rel, ModFurniture.TOILET.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH));
+		BlockPos abs = h.absolutePos(rel);
+		ServerPlayer p = h.makeMockServerPlayerInLevel();
+		BlockHitResult tank = new BlockHitResult(new Vec3(abs.getX() + 0.5, abs.getY() + 0.9, abs.getZ() + 0.85), Direction.UP, abs, false);
+		h.assertTrue(ToiletBlock.hitsTank(h.getBlockState(rel), abs, tank), "tank click counts as the handle");
+		h.getBlockState(rel).useWithoutItem(h.getLevel(), p, tank);
+		h.assertTrue(!p.isPassenger(), "flushing doesn't sit you down");
+		BlockHitResult seat = new BlockHitResult(new Vec3(abs.getX() + 0.5, abs.getY() + 0.56, abs.getZ() + 0.3), Direction.UP, abs, false);
+		h.assertTrue(!ToiletBlock.hitsTank(h.getBlockState(rel), abs, seat), "seat click is not the tank");
+		h.getBlockState(rel).useWithoutItem(h.getLevel(), p, seat);
+		h.assertTrue(p.getVehicle() instanceof Seat, "sitting on the toilet");
+		h.succeed();
+	}
+
+	/** The French Candle starts unlit (no light); right-click lights it (light 12), right-click again blows it out. */
+	@GameTest
+	public void candleLightsAndBlowsOut(GameTestHelper h) {
+		BlockPos rel = new BlockPos(1, 1, 1);
+		h.setBlock(rel, ModFurniture.FRENCH_CANDLE.defaultBlockState());
+		h.assertTrue(!h.getBlockState(rel).getValue(FrenchCandleBlock.LIT) && h.getBlockState(rel).getLightEmission() == 0, "starts unlit");
+		ServerPlayer p = h.makeMockServerPlayerInLevel();
+		h.getBlockState(rel).useWithoutItem(h.getLevel(), p, hit(h, rel));
+		h.assertTrue(h.getBlockState(rel).getValue(FrenchCandleBlock.LIT) && h.getBlockState(rel).getLightEmission() == 12, "lit, light 12");
+		h.getBlockState(rel).useWithoutItem(h.getLevel(), p, hit(h, rel));
+		h.assertTrue(!h.getBlockState(rel).getValue(FrenchCandleBlock.LIT), "blown out");
+		h.getBlockState(rel).useWithoutItem(h.getLevel(), p, hit(h, rel));
+		h.succeedWhen(() -> {
+			int light = h.getLevel().getBrightness(LightLayer.BLOCK, h.absolutePos(rel.east()));
+			h.assertTrue(light >= 11, "lights up next to it: " + light);
 		});
 	}
 }
